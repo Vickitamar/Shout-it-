@@ -90,6 +90,36 @@ header h1 {
 }
 
 
+#backgroundLog {
+	height: 1300px;
+	background-color: #000;
+	background-image: url(../images/bgLog.jpg);
+	background-position: center;
+	background-size: cover;
+	display: table;
+	width: 100%;
+	
+}
+
+#loginForm, #registerForm {
+	color: white;
+}
+
+.logOut button {
+	color: #fff;
+	cursor: pointer;
+	margin-bottom: 10px;
+	margin-left: 100px;
+	background-color: orange;
+	font-weight: 500;
+	letter-spacing: 2px;
+	border: 2px solid #fff;
+	border-radius: 500px;
+	padding: 15px;
+	min-width: 130px;
+}
+
+
 
 
 

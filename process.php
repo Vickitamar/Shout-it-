@@ -14,7 +14,7 @@ if(isset($_POST['submit'])) {
 	//validate
 	if(!isset($user) || $user == '' || !isset($message) || $message == '') {
 		$error = 'Please fill in your name and a message';
-		header("Location: index.php?error=".urlencode($error));
+		header("Location: shoutIt.php?error=".urlencode($error));
 		exit();
 	}
 	else { //if all validation is fine then insert data
@@ -24,7 +24,7 @@ if(isset($_POST['submit'])) {
 			die('ERROR: ' . mysqli_error($con));
 
 		} else {
-			header("Location: index.php");
+			header("Location: shoutIt.php");
 			exit();
 		}
 	}

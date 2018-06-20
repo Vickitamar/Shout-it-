@@ -1,0 +1,117 @@
+html, body {
+	margin: 0;
+	padding: 0;
+    background-color: black;
+    height: 100%;
+}   
+
+
+#loginContainer * {
+	color: white;
+	font-family: "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+	font-weight: normal;
+	line-height: 1em;
+	box-sizing: border-box;
+}
+
+#loginContainer {
+	width: 40%;
+	margin: 200px auto;
+	position: relative;
+	max-width: 1024px;
+}
+
+::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    color:    #fff;
+    opacity:  1;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+   color:    #fff
+   opacity:  1;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+   color:    #fff
+   opacity:  1;
+}
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+   color:    #fff
+}
+::-ms-input-placeholder { /* Microsoft Edge */
+   color:    #fff
+}
+
+::placeholder { /* Most modern browsers support this now. */
+   color:    #fff
+}
+
+#loginForm h2 {
+	font-size: 50px;
+}
+
+#inputContainer {
+	width: 100%;
+	padding: 45px;
+	
+}
+
+#inputContainer h2 {
+	text-align: center;
+}
+
+#inputContainer input[type="password"],
+#inputContainer input[type="email"],
+#inputContainer input[type="text"] {
+	display: block;
+	background-color: transparent;
+	border: 1px solid white;
+	border-radius: 3px;
+	height: 40px;
+	line-height: 27px;
+	width: 100%;
+	margin-top: 10px;
+	font-size: 20px;
+}
+
+#inputContainer label {
+	color: white;
+	font-size: 20px;
+	margin-top: 15px;
+	display: block;
+}
+
+#inputContainer button {
+	background-color: orange;
+	border: 2px solid #fff;
+	border-radius: 250px;
+	color: #fff;
+	display: block;
+	font-size: 30px;
+	font-weight: 700;
+	letter-spacing: 1px;
+	margin: 20px auto;
+	height: 41px;
+	width: 100%;
+}
+
+#inputContainer button:hover {
+	cursor: pointer;
+}
+
+.hasAccountText span { 
+	font-weight: bold;
+	font-size: 24px;
+	cursor: pointer;
+}
+
+
+.hasAccountText {
+	text-align: center;	
+}
+
+
+
+#inputContainer .errorMessage {
+	color: #07d159;
+	font-size: 14px;
+	display: block; 
+}

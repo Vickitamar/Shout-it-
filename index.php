@@ -1,49 +1,140 @@
-<?php
-include 'database.php';
+<?php 
+include("database.php");
+include("includes/classes/Account.php");
+include("includes/classes/Constants.php");
+$account = new Account($con); //this is called creating an instance.
+include("includes/handlers/login-handler.php");
+include("includes/handlers/register-handler.php");
 
-//create select query
-$query = "SELECT * FROM shouts ORDER BY id DESC";
-$shouts = mysqli_query($con, $query);
+function getInputValue($name) {
+		if(isset($_POST[$name])) {
+			echo $_POST[$name];
+		}
+	}
+
 ?>
+
 
 <!DOCTYPE html>
 <html>
 <head>
 	<title>Shout it</title>
 	<link rel="stylesheet" href="assets/css/style.css" />
+	<link rel="stylesheet" href="assets/css/login.css" />
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="assets/js/register.js"></script>	
 </head>
 <body>
-	<div class="background">
-		<div id="container">
-			<header>
-				<h1>Shout It</h1>
-			</header>
+	<?php
+	if(isset($_POST['registerButton'])) {
+		echo '<script>
+				$(document).ready(function() {
+					$("#loginForm").hide();
+					$("#registerForm").show();
+				});
+			</script>';
+	}
+	else {
+		echo '<script>
+				$(document).ready(function() {
+					$("#loginForm").show();
+					$("#registerForm").hide();
+				});
+			</script>';
 
-			<div id="shouts">
-				<ul>
-					<?php while($row = mysqli_fetch_assoc($shouts)) : ?>
-						<li class="shout"><span><?php echo $row['time']; ?> - </span><strong><?php echo $row['user']; ?>:  </strong><?php echo $row['message']; ?></li>
+	}
+	?>
+	<div id="backgroundLog">
+		<div id="loginContainer">
+			<div id="inputContainer">
+				<form id="loginForm" action="index.php" method="POST">
+					<h2>Login to your account</h2>
+					<p>
+						
+						<label for="loginUsername">Username</label>
+						<input id="loginUsername" type="text" name="loginUsername" placeholder="name" value="<?php getInputValue('loginUsername') ?>" required>
+					</p>
+					
+					<p>
+						<label for="loginPassword">Password</label>
+						<input id="loginPassword" type="password" name="loginPassword" required>
+					</p>
 
-					<?php endwhile; ?>	
+					<button typr="submit" name="loginButton">LOG IN</button>
+
+					<div class="hasAccountText">
+						<span id="hideLogin">Don't have an account yet? Sign up here.</span>
+						<?php echo $account->getError(Constants::$loginFailed); ?>
+					</div>
+					
+					
+				</form>
+
+
+
+				<form id="registerForm" action="index.php" method="POST">
+					<h2>Create your free account</h2>
+					<p>
+						<?php echo $account->getError(Constants::$userNameCharacters); ?>
+						<?php echo $account->getError(Constants::$usernameTaken); ?>
+						<label for="username">Username</label>
+						<input id="username" type="text" name="username" placeholder="name" value="<?php getInputValue('username') ?>"required>
+					</p>
+
+					<p>
+						<?php echo $account->getError(Constants::$firstNameCharacters); ?>
+						<label for="firstName">First Name</label>
+						<input id="firstName" type="text" name="firstName" placeholder="first name" value="<?php getInputValue('firstName') ?>" required>
+					</p>
+
+					<p>
+						<?php echo $account->getError(Constants::$lastNameCharacters); ?>
+						<label for="lastName">Last Name</label>
+						<input id="lastName" type="text" name="lastName" placeholder="last name" value="<?php getInputValue('lastName') ?>"required>
+					</p>
+
+					<p>
+						<?php echo $account->getError(Constants::$emailsDoNotMatch); ?>
+						<?php echo $account->getError(Constants::$emailInvalid); ?>
+						<?php echo $account->getError(Constants::$emailTaken); ?>
+						<label for="email">Email</label>
+						<input id="email" type="email" name="email" placeholder="email" value="<?php getInputValue('email') ?>"required>
+					</p>
+
+					<p>
+						<label for="email2">Confirm email</label>
+						<input id="email2" type="text" name="email2" placeholder="confirm email" value="<?php getInputValue('email2') ?>"required>
+					</p>
+
+
+					<p>
+						<?php echo $account->getError(Constants::$passwordsDoNotMatch); ?>
+						<?php echo $account->getError(Constants::$passwordNotAlphaNumeric); ?>
+						<?php echo $account->getError(Constants::$passwordCharacters); ?>
+						<label for="password">Password</label>
+						<input id="password" type="password" name="password"  value="<?php getInputValue('password') ?>" required>
+					</p>
 
 					
-				</ul>
-			</div>
+					<p>
+						<label for="password2">Confirm Password</label>
+						<input id="password2" type="password" name="password2" value="<?php getInputValue('password2') ?>" required>
+					</p>
 
-			<div id="input">
-				<?php if(isset($_GET['error'])) :  ?>
-					<div class="error"><?php echo $_GET['error']; ?></div>
-				<?php endif; ?>
-				<form method="post" action="process.php">
-					<input type="text" name="user" placeholder="Enter your name" />
-					<input type="text" name="message" placeholder="Enter your message" />
-					<br />
-					<input class="shout-button" type="submit" name="submit" value="Shout it out" />
-				</form>	
-			</div>
+					<button typr="submit" name="registerButton">SIGN UP</button>
 
+					<div class="hasAccountText">
+						<span id="hideRegister">Alreday have an account? Log in here.</span>
+					</div>
+					
+				</form>
+				
+			</div>
+			
 		</div>
-	</div>	
+	</div>
+
 
 </body>
 </html>
